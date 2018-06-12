@@ -9,7 +9,9 @@ ie without the modifiers, with m=v=q=1 for both particles, gravitational and ele
 ## HOW TO USE
 
 1. Install the "controlp5" library through Processing's built in Library manager ("Sketch-->"Import Library"-->"Add Library")
-2. Run the app, and set the constants.
+2. Open the "boneless_relativity" folder in Processing
+3. Run the app, and set the constants.
+4. Add particles before pressing submit. Good recomended starting ones are the ones commented out in the main pde file (mass=charge=1, momentum = [1,0,0], x=0,z=0 for both, then x = 100 and x = 400)
 
 
 Can host multiple particles, simply add to the ArrayList in "boneless_relativity.pde" or use the (as of writing this documentation) still to be implemented particle adder tool [future]

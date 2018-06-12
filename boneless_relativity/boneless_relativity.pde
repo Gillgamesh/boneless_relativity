@@ -15,13 +15,17 @@ void setup() {
   size(700,500,P3D);
   particles = new ArrayList<Particle>();
   cp5 = new ControlP5(this);
+  font = createFont("arial", 12);
+  textSize(16);
   setupControl();
   // ASSUME 0,0 is the bottom left, which processing doesnt do. 
-  particles.add(new Particle(1, 1, new PVector(0 , height-100, 0), new PVector(1.0, 0, 0), true));
-  particles.add(new Particle(1, 1, new PVector(0, 100, 0), new PVector(1.0, 0, 0), true));
+  //particles.add(new Particle(1, 1, new PVector(0 , height-100, 0), new PVector(1.0, 0, 0), true));
+  //particles.add(new Particle(1, 1, new PVector(0, 100, 0), new PVector(1.0, 0, 0), true));
   //particles.add(new Particle(1, 1, new PVector(0, height/2 - 50, 0), new PVector(1.0, 0, 0), true));
 }
 void draw() {
+  clear();
+  background(128);
   //HARDCODED FOR NOW, GET FROM JS WHEN CONVERTED
   draw_g = true;
   draw_E = true;
@@ -57,6 +61,9 @@ void draw() {
     }
     popMatrix();
     popMatrix();
+  }
+  else {
+    text("Particle " + currentParticle, 350, 50);
   }
 }
 
