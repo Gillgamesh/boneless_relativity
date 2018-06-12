@@ -27,7 +27,6 @@ final float PLANCK_CHARGE = CONSTANT_e / sqrt(CONSTANT_a);
 float MODIFIER_G = 20;
 float MODIFIER_E = 1000;
 float MODIFIER_B = 2000;
-
 //visualization constants
 
 //planck length units per pixel

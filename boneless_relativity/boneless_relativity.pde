@@ -4,13 +4,18 @@ float rotX = 0;
 float rotY = 0;
 float rotZ = 0;
 
+/* INCLUDE -- controlp5 -- IT IS AVAILABLE FROM THE "SKETCH->IMPORT_LIBRARY DROPDOWN"*/ 
+
+import controlP5.*;
 boolean draw_g, draw_E, draw_B;
 
 // PROJECT UNITS: KMS
 //SCALE: 1 pixel = 1 meter
 void setup() {
-  size(500,500,P3D);
+  size(700,500,P3D);
   particles = new ArrayList<Particle>();
+  cp5 = new ControlP5(this);
+  setupControl();
   // ASSUME 0,0 is the bottom left, which processing doesnt do. 
   particles.add(new Particle(1, 1, new PVector(0 , height-100, 0), new PVector(1.0, 0, 0), true));
   particles.add(new Particle(1, 1, new PVector(0, 100, 0), new PVector(1.0, 0, 0), true));
@@ -22,35 +27,37 @@ void draw() {
   draw_E = true;
   draw_B = true;
   //
-  pushMatrix();
-  rotateX(rotX);
-  rotateY(rotY);
-  rotateZ(rotZ);
-  lights();
-  pushMatrix();
-  background(0);
-  //in place force calculations
-  for (Particle particle :particles) {
-      particle.draw(draw_g, draw_E, draw_B);
-      PVector E = new PVector(0,0,0);
-      PVector g = new PVector(0,0,0);
-      PVector B = new PVector(0,0,0);
-      for (Particle other : particles) {
-        if (particle != other) {
-          E = E.add(particle.getElectricField(other));
-          g = g.add(particle.getGravitationalField(other));
-          B = B.add(particle.getMagneticField(other));
+  if (isSetup) {
+    pushMatrix();
+    rotateX(rotX);
+    rotateY(rotY);
+    rotateZ(rotZ);
+    lights();
+    pushMatrix();
+    background(0);
+    //in place force calculations
+    for (Particle particle :particles) {
+        particle.draw(draw_g, draw_E, draw_B);
+        PVector E = new PVector(0,0,0);
+        PVector g = new PVector(0,0,0);
+        PVector B = new PVector(0,0,0);
+        for (Particle other : particles) {
+          if (particle != other) {
+            E = E.add(particle.getElectricField(other));
+            g = g.add(particle.getGravitationalField(other));
+            B = B.add(particle.getMagneticField(other));
+          }
         }
-      }
-      particle.setElectricField(E);
-      particle.setGravitationalField(g);
-      particle.setMagneticField(B);
+        particle.setElectricField(E);
+        particle.setGravitationalField(g);
+        particle.setMagneticField(B);
+    }
+    for (Particle particle : particles) {
+        particle.update(dt);
+    }
+    popMatrix();
+    popMatrix();
   }
-  for (Particle particle : particles) {
-      particle.update(dt);
-  }
-  popMatrix();
-  popMatrix();
 }
 
 
